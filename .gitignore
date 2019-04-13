@@ -1,0 +1,23 @@
+# front-end modules, logs etc.
+front-end/node_modules/
+front-end/.idea/
+front-end/npm-debug.log
+
+# back-end modules, logs etc
+back-end/node_modules/
+back-end/.idea/
+back-end/npm-debug.log
+back-end/data/
+
+#python stuff
+py_imgProcessing/__pycache__
+py_imgProcessing/bottle-0.12.13
+
+.idea/
+
+# locally generated tiles (redundant)
+sat_data/
+
+# nuetzliche installationsscripts fur windows systeme
+
+py_imgProcessing/.vscode/settings.json

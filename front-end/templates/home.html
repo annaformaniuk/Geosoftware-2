@@ -1,0 +1,154 @@
+<!-- home.html -->
+<div class="jumbotron text-center" data-ng-init="initExtended()">
+    <div id="outer">
+        <leaflet lf-center="center" id="map" markers="markers" layers="layers" defaults="defaults" events="events" event-broadcast="events"></leaflet>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row search">
+            <div class="col-sm-4">
+                <div title="quicksearch for intentifiers" ui-search searched="searchedItem"></div>
+            </div>
+        </div>
+
+        <div class="row search">
+            <div class="col-sm-4">
+                <button type="button" title="draw boundingbox for search" class="advsearch" ng-click="createBoundingBox()">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search">
+            <div class="col-sm-4">
+                <button type="button" class="advsearch" title="show advancedsearch" ng-click="toggleChecked()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search">
+            <div class="col-sm-4">
+
+                <div class="extended" ng-show="checked">
+                    <form>
+                        <input ng-model="input.name" type="text" ng-keydown="triggerEnter($event)" id="" placeholder="Identifiers..." />
+                        <table class="cleantable">
+                            <tr>
+                                <td width="70px">
+                                    <p>
+                                        <label class="date">before:</label>
+                                    </p>
+                                </td>
+                                <td width="70px">
+                                    <p>
+                                        <label class="date">after:</label>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input ng-model="input.before" ng-keydown="triggerEnter($event)" type="date" />
+                                </td>
+                                <td>
+                                    <input ng-model="input.after" ng-keydown="triggerEnter($event)" type="date" />
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p>
+                            <input type="button" id="searchButton" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch()" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-8">
+            </div>
+        </div>
+
+
+        <div class="row search bottom4">
+            <div class="col-sm-4">
+                <button type="button" title="Show pixel information" class="advsearch" ng-click="mouseClick()">
+                    <i class="fa fa-magic" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search bottom3">
+            <div class="col-sm-4">
+                <button type="button" title="Load your image." class="advsearch" ng-click="load()">
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search bottom2">
+            <div class="col-sm-4">
+                <button type="button" title="Save your image." class="advsearch" ng-click="save()">
+                    <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search bottom">
+            <div class="col-sm-4">
+
+                <button type="button" title="Help?" class="advsearch" ng-click="help()">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <div style="text-align:center">
+            <div class="overlayControl" ng-show="thereIsAnOverlay">
+                <p style="font-size: 14px; line-height: 16px;">
+
+                    <label class="checkcontainer">
+                        <input class="" type="checkbox" ng-change="fadeOverlay()" ng-model="overlayVisible" />
+                        <span class="checkmark"></span>
+                    </label>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overlayName}}&nbsp;&nbsp; Band:
+
+                    <select id="band" ng-options="b for b in bandOptions" class="band" ng-model="selectedBand" ng-change="changeBand()">
+                    </select>
+
+                    &nbsp;
+
+                    <button type="button" title="Choose band colors." class="paintbutton" ng-click="bandColorController()">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    </button>
+
+                    &nbsp;&nbsp;
+
+                    <span style="display: inline-block;">Opacity:
+                        <input style="display: inline-block; width: 100px;" id="opacitiyValueId" type="range" name="range" ng-model="opacityValue"
+                            min="0" max="100" ng-change="changeOpacity()"> {{opacityValue}}%</span>
+
+                    <button type="button" title="Compute?" class="compbutton" ng-click="compute()">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </button>
+                </p>
+            </div>
+        </div>
+
+        <div class="processing" ng-show="isProcessing">
+            <table>
+                <tr>
+                    <td>
+                        <h4>Processing...&nbsp;</h4>
+                    </td>
+                    <td>
+                        <div class="loader"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="infobox scrollbarDiv" ng-show="hasInfo">
+            <div ng-bind-html="layerInfo"></div>
+        </div>
+    </div>
+</div>

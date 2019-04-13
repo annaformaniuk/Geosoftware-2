@@ -1,0 +1,176 @@
+<div class="row">
+    <div class="modal-header">
+        <h1 class="modal-title">Band colors</h1>
+        <p style="font-size: 14px; display: inline;"> The result is colorful only when a combination of a red, blue and green bands was chosen.</p>
+    </div>
+</div>
+
+<div class="row searchRow">
+    <div class="modal-body">
+
+        <div class="col-sm-8 scrollbarDiv">
+            <div ng-repeat="x in terms">
+                <span>
+                    <select ng-options="b for b in bandOptions" ng-model="x.band">
+                    </select>
+                    <p style="font-size: 14px; display: inline;">&nbsp;in</p>
+                    <select ng-model="x.color">
+                        <option class="inred" value="red">Red</option>
+                        <option class="ingreen" value="green">Green</option>
+                        <option class="inblue" value="blue">Blue</option>
+                        <option class="ingrey" value="grayscale">Grayscale</option>
+                    </select>
+
+                    <span style="display: inline-block;">
+                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Contrast:</p>
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="x.contrastValue" min="0" max="255">
+                        <div style="width: 30px; display: inline-block;">
+                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{x.contrastValue}}</p>
+                        </div>
+                    </span>
+
+                    <span style="display: inline-block;">
+                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Brightness:</p>
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="x.brightnessValue" min="0" max="255">
+                        <div style="width: 30px; display: inline-block;">
+                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{x.brightnessValue}}</p>
+                        </div>
+                    </span>
+
+                    <span style="display: inline-block;">
+                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;&nbsp;&nbsp;Masking:</p>
+                        <input class="maskvalue" type="number" name="input" ng-model="x.maskingvalue1" min="0" max="255">
+                        <select class="maskop" ng-if="x" ng-model="x.maskingoperator1">
+                                <option value="!=">&ne;</option>
+                            <option value="==">=</option>
+                                    <option value=">=">&geq;</option>
+                                    <option value="<=">&leq;</option>
+                                    <option value=""></option>
+                        </select>
+                        <p style="font-size: 14px; display: inline;">&nbsp;band&nbsp;</p>
+                        <select class="maskop" ng-if="x.maskingoperator1 == '<='" ng-model="x.maskingoperator2">
+                            <option value="<=">&leq;</option>
+                            <option value=""></option></select>
+                        <select class="maskop" ng-if="x.maskingoperator1 == '>='" ng-model="x.maskingoperator2">
+                                <option value=">=">&geq;</option>
+                                <option value=""></option></select>
+                        <input class="maskvalue" ng-if="x.maskingoperator1 == '>=' || x.maskingoperator1 == '<='" type="number" name="input" ng-model="x.maskingvalue2" min="0" max="255">
+                    </span>
+
+                    <!-- Bitte überarbeiten -->
+                    <button class="delete" ng-click="deletecf($index)" ng-if="terms.length>1">-</button>
+                    <button class="add_form_field" ng-click="addcf()">
+                        <span style="font-size:16px; font-weight:bold;">+</span>
+                    </button>
+
+                </span>
+            </div>
+        </div>
+
+        <div class="col-sm-4 scrollbarDiv">
+            <table class="sentinelTable">
+                <tbody>
+                    <tr>
+                        <th>Sentinel-2 Bands</th>
+                        <th>Central Wavelength (µm)</th>
+                        <th>Resolution (m)</th>
+                        <th>Bandwidth (nm)</th>
+                    </tr>
+                    <tr>
+                        <td>Band 1 – Coastal aerosol</td>
+                        <td>0.443</td>
+                        <td>60</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 2 – Blue</td>
+                        <td>0.490</td>
+                        <td>10</td>
+                        <td>65</td>
+                    </tr>
+                    <tr>
+                        <td>Band 3 – Green</td>
+                        <td>0.560</td>
+                        <td>10</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>Band 4 – Red</td>
+                        <td>0.665</td>
+                        <td>10</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>Band 5 – Vegetation Red Edge</td>
+                        <td>0.705</td>
+                        <td>20</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Band 6 – Vegetation Red Edge</td>
+                        <td>0.740</td>
+                        <td>20</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Band 7 – Vegetation Red Edge</td>
+                        <td>0.783</td>
+                        <td>20</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 8 – NIR</td>
+                        <td>0.842</td>
+                        <td>10</td>
+                        <td>115</td>
+                    </tr>
+                    <tr>
+                        <td>Band 8A – Narrow NIR</td>
+                        <td>0.865</td>
+                        <td>20</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 9 – Water vapour</td>
+                        <td>0.945</td>
+                        <td>60</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 10 – SWIR – Cirrus</td>
+                        <td>1.375</td>
+                        <td>60</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 11 – SWIR</td>
+                        <td>1.610</td>
+                        <td>20</td>
+                        <td>90</td>
+                    </tr>
+                    <tr>
+                        <td>Band 12 – SWIR</td>
+                        <td>2.190</td>
+                        <td>20</td>
+                        <td>180</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="modal-footer">
+        <button class="btn btnleft buttonwhite" type="button" ng-click="trueColor()" ng-show="imageType1C">TRUE COLOR</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="falseColor()">False color</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="shortWaveInfrared()" ng-show="imageType1C">Short-wave Infrared</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="nearInfrared()" ng-show="imageType1C">Near Infrared</button>
+        <p style="font-size: 14px; display: inline;">
+            <span ng-repeat="x in terms" style="display:inline;">{{x.band}} {{x.color}} {{x.contrastValue}} {{x.brightnessValue}} </span>
+        </p>
+        &nbsp;&nbsp;
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
+    </div>
+</div>
